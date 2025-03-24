@@ -4,10 +4,10 @@ import numpy as np
 import os
 
 # Set Page Config
-st.set_page_config(page_title="🚀 Interactive Streamlit App", page_icon="✨", layout="wide")
+st.set_page_config(page_title="Interactive Streamlit App", page_icon="✨", layout="wide")
 
 # App Title
-st.title("🚀 Interactive Streamlit App")
+st.title("Interactive Streamlit App")
 
 # Sidebar Section
 st.sidebar.header("User Input")
@@ -24,10 +24,9 @@ favorite_color = st.sidebar.selectbox(
     ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Black", "White"]
 )
 
-
 # Button for Greeting
 if st.sidebar.button("Greet Me!"):
-    st.success(f"Hello, {name}! 🎉 You are {age} years old and love {favorite_color}.")
+    st.success(f"Hello, {name}! You are {age} years old and love {favorite_color}.")
 
 # Random Chart Visualization
 st.subheader("📊 Random Data Visualization")
@@ -35,26 +34,32 @@ num_points = st.slider("Select number of data points:", min_value=10, max_value=
 chart_data = pd.DataFrame(np.random.randn(num_points, 3), columns=["X", "Y", "Z"])
 st.line_chart(chart_data)
 
-# Load CSV from a specific path
+# Load CSV Data
+st.subheader("📂 Dataset Explorer")
+
 csv_path = r"C:/Streamlittt/olist_order_payments_dataset.csv"
+data = None
 
-st.subheader("📂 Olist Order Payments Dataset")
-
+# Check if the local file exists
 if os.path.exists(csv_path):
-    df = pd.read_csv(csv_path)
-    st.write("### Preview of Dataset:")
-    st.dataframe(df.head(20))  # Display first 20 rows
+    data = pd.read_csv(csv_path)
+    st.write("### Preview of Local Dataset:")
+    st.dataframe(data.head(20))
 else:
-    st.error(f"⚠️ File not found: {csv_path}")
+    st.warning(f"⚠️ Local file not found: {csv_path}. Upload a CSV file instead.")
 
 # File Upload Feature
-st.subheader("📂 Upload a CSV File")
-uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
 
 if uploaded_file is not None:
-    uploaded_df = pd.read_csv(uploaded_file)
+    data = pd.read_csv(uploaded_file)
     st.write("### Preview of Uploaded File:")
-    st.dataframe(uploaded_df.head(20))
+    st.dataframe(data.head(20))
+
+# Display dataset statistics if a valid dataset is loaded
+if data is not None:
+    st.subheader("📊 Dataset Statistics")
+    st.write(data.describe())
 
 # Footer
 st.markdown("### Made with ❤️ using Streamlit")
