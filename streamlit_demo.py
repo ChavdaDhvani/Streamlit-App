@@ -36,7 +36,7 @@ chart_data = pd.DataFrame(np.random.randn(num_points, 3), columns=["X", "Y", "Z"
 st.line_chart(chart_data)
 
 # Load CSV from a specific path
-csv_path = r"C:/all practicals/olist_order_payments_dataset.csv"
+csv_path = r"C:/Streamlittt/olist_order_payments_dataset.csv"
 
 st.subheader("📂 Olist Order Payments Dataset")
 
