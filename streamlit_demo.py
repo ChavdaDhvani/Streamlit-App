@@ -56,10 +56,6 @@ if uploaded_file is not None:
     st.write("### Preview of Uploaded File:")
     st.dataframe(data.head(20))
 
-# Display dataset statistics if a valid dataset is loaded
-if data is not None:
-    st.subheader("📊 Dataset Statistics")
-    st.write(data.describe())
 
 # Footer
 st.markdown("### Made with ❤️ using Streamlit")
